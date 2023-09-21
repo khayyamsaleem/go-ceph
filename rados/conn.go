@@ -6,6 +6,8 @@ package rados
 import "C"
 
 import (
+	"fmt"
+	"runtime"
 	"unsafe"
 
 	"github.com/ceph/go-ceph/internal/cutil"
@@ -42,19 +44,22 @@ func (c *Conn) Cluster() ClusterRef {
 
 // PingMonitor sends a ping to a monitor and returns the reply.
 func (c *Conn) PingMonitor(id string) (string, error) {
+	fmt.Println("A")
 	cid := C.CString(id)
 	defer C.free(unsafe.Pointer(cid))
 
 	var strlen C.size_t
 	var strout *C.char
-
+	fmt.Println("B")
 	ret := C.rados_ping_monitor(c.cluster, cid, &strout, &strlen)
 	defer C.rados_buffer_free(strout)
-
+	fmt.Println("C")
 	if ret == 0 {
 		reply := C.GoStringN(strout, (C.int)(strlen))
 		return reply, nil
 	}
+	fmt.Println("D")
+	runtime.KeepAlive(c.cluster)
 	return "", getError(ret)
 }
 
