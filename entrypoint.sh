@@ -260,6 +260,7 @@ test_pkg() {
     show go test -v "${testargs[@]}" "./${pkg}"
     ret=$(($?+ret))
     grep -v "^mode: count" "${pkg}.cover.out" >> "cover.out"
+    find .
     return ${ret}
 }
 
