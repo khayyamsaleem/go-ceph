@@ -457,7 +457,7 @@ func (suite *RadosTestSuite) TestGetLargePoolList() {
 
 func (suite *RadosTestSuite) TestAAAPingMonitor() {
 	suite.SetupConnection()
-	const N = 1000
+	const N = 10000
 	for i := 0; i < N; i++ {
 		// mon id that should work with vstart.sh
 		reply, err := suite.conn.PingMonitor("a")

@@ -61,8 +61,8 @@ jobs:
         ceph_version:
         # - "nautilus"
         # - "octopus"
-        # - "pacific"
-        - "quincy"
+        - "pacific"
+        # - "quincy"
         # - "reef"
         # - "pre-quincy"
         # - "pre-reef"

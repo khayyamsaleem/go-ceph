@@ -257,10 +257,12 @@ test_pkg() {
         testargs+=("-memprofile" "${pkg}.mem.out")
     fi
 
-    show go test -v "${testargs[@]}" "./${pkg}"
+    ulimit -c unlimited
+    go test -c -v "${testargs[@]}" "./${pkg}"
+    show ./${pkg}.test
+    gdb rados.test core -ex bt -ex q | cat
     ret=$(($?+ret))
     grep -v "^mode: count" "${pkg}.cover.out" >> "cover.out"
-    find .
     return ${ret}
 }
 
