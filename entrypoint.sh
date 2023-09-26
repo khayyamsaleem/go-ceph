@@ -259,11 +259,11 @@ test_pkg() {
 
     ulimit -c unlimited
     go test -c -v "${testargs[@]}" "./${pkg}"
-    show ./${pkg}.test
+    show "./${pkg}.test"
     sleep 5
-    gdb ${pkg}.test core -ex bt -ex q | cat
+    gdb "${pkg}.test" core -ex bt -ex q | cat
     mkdir -p "${RESULTS_DIR}"
-    mv ${pkg}.test core ${RESULTS_DIR}
+    mv "${pkg}.test" core "${RESULTS_DIR}"
     ret=$(($?+ret))
     grep -v "^mode: count" "${pkg}.cover.out" >> "cover.out"
     return ${ret}
